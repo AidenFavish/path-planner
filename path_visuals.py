@@ -3,11 +3,13 @@ import matplotlib.pyplot as plt
 import numpy as np
 from phase1 import Phase1
 
+EDGE_DIST = 0.05
+
 class PathVisuals:
     def __init__(self, fence_veriticies:list[tuple[float, float]], waypoints:list[tuple[float, float, float]]):
         self.geofence = Geofence(fence_veriticies)
         self.waypoints = waypoints
-        self.phase1 = Phase1(waypoints, fence_veriticies)
+        self.phase1 = Phase1(waypoints, fence_veriticies, EDGE_DIST)
 
     def _display_fence(self, ax, fence: Geofence, color:str="orange"):
         x, y = fence.polygon.exterior.xy
@@ -41,7 +43,7 @@ class PathVisuals:
         ax.grid()
 
         self._display_fence(ax, self.geofence, "red")
-        self._display_fence(ax, self.geofence.shrink(0.05), "blue")
+        self._display_fence(ax, self.geofence.shrink(EDGE_DIST), "blue")
 
         self._display_points(ax, self.phase1.generate_fixed_trajectory())
 
