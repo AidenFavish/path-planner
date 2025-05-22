@@ -49,7 +49,6 @@ class Djikstras:
         path = []
         ctr = len(self.d_table)
         while tmp != self.start_node and ctr > 0:
-            print(self.d_table)
             ctr -= 1
             path.append(tmp)
             tmp = self.d_table[tmp].shortest_node
