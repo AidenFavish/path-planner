@@ -1,4 +1,4 @@
-from shapely.geometry import Polygon, MultiPolygon
+from shapely.geometry import Polygon, MultiPolygon, LineString
 import numpy as np
 
 class Geofence:
@@ -17,7 +17,9 @@ class Geofence:
 
         return Geofence(list(shrunken_polygon.exterior.coords))
     
-    def get_coords(self):
+    def get_coords(self) -> list[tuple[float, float]]:
         return list(self.polygon.exterior.coords)
     
-
+    def intersect(self, point1: tuple[float, float], point2: tuple[float, float]) -> bool:
+        line = LineString([point1, point2])
+        return line.intersects(self.polygon.boundary)
